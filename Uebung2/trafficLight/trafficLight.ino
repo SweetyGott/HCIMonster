@@ -3,13 +3,14 @@
   #include <avr/power.h>
 #endif
 
-#define echoPin 8 // Echo Pin
+#define PIN  6 // Echo Pin
 #define trigPin 7 // Trigger Pin
+#define echoPin 8 // Echo Pin
 #define PIN_ECHO 8
 
 #define NUM_PIXELS 12
 
-int maximumRange = 5; // Maximum range needed
+int maximumRange = 20; // Maximum range needed
 int minimumRange = 0; // Minimum range needed
 long duration, distance; // Duration used to calculate distance
 
@@ -22,8 +23,8 @@ void setup() {
     if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
   #endif
   // End of trinket special code
-  pinMode(PIN_TRIGGER,OUTPUT);
-  pinMode(PIN_ECHO,INPUT);
+ pinMode(trigPin, OUTPUT);
+ pinMode(echoPin, INPUT);
   Serial.begin (9600);
   ring.begin();
   ring.show(); // Initialize all pixels to 'off'
@@ -33,40 +34,33 @@ void setup() {
 int inc = 0;
 int color = 0;
 void loop() {
-  digitalWrite(PIN_TRIGGER,LOW);
-  delayMicroseconds(2);
-  digitalWrite(PIN_TRIGGER, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(PIN_TRIGGER, LOW);
-  Serial.println(digitalRead(PIN_ECHO));
-  //duration = pulseIn(PIN_ECHO, HIGH);
-  Serial.println(duration);
-  //Calculate the distance (in cm) based on the speed of sound.
-  distance = duration/58.2;
-  if (distance >= maximumRange || distance <= minimumRange){
-    setRed();
-    
-   }
-   else {
-     setGreen();
-   }
-   
-  delay(50);
-  /*
-  //Serial.println(in);
-  if(color ==1){
-    setGreen();
-  }else if(color == 2){
-    setYellow();
-  }else{
-    setRed();
-  }
-  inc++;
-  inc %= 50;
-  if(inc == 0){
-    color= (color+1)%3;
-  }
-  */
+   digitalWrite(trigPin, LOW); 
+ delayMicroseconds(2); 
+
+ digitalWrite(trigPin, HIGH);
+ delayMicroseconds(10); 
+ 
+ digitalWrite(trigPin, LOW);
+ duration = pulseIn(echoPin, HIGH);
+ 
+ //Calculate the distance (in cm) based on the speed of sound.
+ distance = duration/58.2;
+ Serial.println(distance);
+ if (distance >= maximumRange || distance <= minimumRange){
+ /* Send a negative number to computer and Turn LED ON 
+ to indicate "out of range" */
+ //Serial.println("-1");
+  setRed();
+ }
+ else {
+ /* Send the distance to the computer using Serial protocol, and
+ turn LED OFF to indicate successful reading. */
+ Serial.println(distance);
+  setGreen();
+ }
+ 
+ //Delay 50ms before next reading.
+ delay(50);
 }
 
 void setGreen(){
