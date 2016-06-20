@@ -6,7 +6,7 @@ var GHOST_BLINKY_COLOR = "#ed1b24";
 var GHOST_BLINKY_MOVING_TIMER = -1;
 var GHOST_BLINKY_MOVING = false;
 var GHOST_BLINKY_BODY_STATE = 0;
-var GHOST_BLINKY_STATE = 0;
+var GHOST_BLINKY_STATE = 0;//0 ist normal others are somehow afraid
 var GHOST_BLINKY_EAT_TIMER = null;
 var GHOST_BLINKY_AFFRAID_TIMER = null;
 var GHOST_BLINKY_AFFRAID_STATE = 0;
@@ -56,9 +56,9 @@ var GHOST_CLYDE_TUNNEL = false;
 
 var GHOST_AFFRAID_COLOR = "#2d3eff";
 var GHOST_AFFRAID_FINISH_COLOR = "#fff";
-var GHOST_POSITION_STEP = 2;
-var GHOST_MOVING_SPEED = 15;
-var GHOST_TUNNEL_MOVING_SPEED = 35;
+var GHOST_POSITION_STEP = 2; // how many positions per step
+var GHOST_MOVING_SPEED = 15; //how often a step per time, lower value is faster
+var GHOST_TUNNEL_MOVING_SPEED = 35; // in tunnel
 var GHOST_AFFRAID_MOVING_SPEED = 40;
 var GHOST_EAT_MOVING_SPEED = 6;
 var GHOST_AFFRAID_TIME = 8500;
@@ -132,9 +132,9 @@ function getGhostCanevasContext(ghost) {
 
 function drawGhosts() { 
 	drawGhost("blinky");
-	drawGhost('pinky');
-	drawGhost('inky');
-	drawGhost("clyde");
+	//drawGhost('pinky');
+	//drawGhost('inky');
+	//drawGhost("clyde");
 }
 function drawGhost(ghost) { 
 	var ctx = getGhostCanevasContext(ghost);
@@ -148,8 +148,9 @@ function drawGhost(ghost) {
 			eval('ctx.fillStyle = GHOST_AFFRAID_COLOR');
 		}
 	}
-	eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
-	
+	if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')) {
+		eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
+	}
 	ctx.closePath();
 }
 
@@ -252,7 +253,7 @@ function moveGhosts() {
 	moveGhost("blinky");
 	moveGhost('pinky');
 	moveGhost('inky');
-	moveGhost("clyde");
+	//moveGhost("clyde");
 }
 function moveGhost(ghost) {
 
@@ -417,6 +418,7 @@ function changeDirection(ghost) {
 	}
 }
 
+//move ghost directly home
 function getRightDirectionForHome(axe, ghostX, ghostY) { 
 	var homeX = 276;
 	var homeY = 204;

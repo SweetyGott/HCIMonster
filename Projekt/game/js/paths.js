@@ -1,6 +1,10 @@
 var PATHS = new Array();
 var PATHS_CANVAS_CONTEXT = null;
 
+/*
+PATHS define where pac man and the ghosts can move to
+*/
+
 function initPaths() { 
 	var canvas = document.getElementById('canvas-paths');
 	canvas.setAttribute('width', '550');
@@ -12,8 +16,8 @@ function initPaths() {
 	// CENTER
 	PATHS.push("128,416-422,416");
 	PATHS.push("30,98-518,98");
-	PATHS.push("2,258-186,258");
-	PATHS.push("362,258-548,258");
+	PATHS.push("10,258-186,258");//teleport Left
+	PATHS.push("362,258-540,258"); //teleport right
 	PATHS.push("186,204-362,204");
 	PATHS.push("186,310-362,310");
 	PATHS.push("30,522-518,522");

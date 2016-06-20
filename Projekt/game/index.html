@@ -4,8 +4,6 @@
 
 	<head>
 
-		<meta property="og:image" content="https://87060b9f4949ec52ecb6a75e0388be0b4d345dad.googledrive.com/host/0B4HFlS9vdbwFQlJvRFU2NDVYMlk/img/preview.png">
-		<meta property="og:url" content="https://87060b9f4949ec52ecb6a75e0388be0b4d345dad.googledrive.com/host/0B4HFlS9vdbwFQlJvRFU2NDVYMlk/">
 		<meta property="og:description" content="Pac-Man game written in HTML5 + CSS3 + jQuery with Canvas. This WebApp is a Responsive Web Design (RWD) website.">
 		<meta property="og:title" content="Lucio PANEPINTO - Pac-Man">
 		
@@ -148,12 +146,12 @@
 								} else if ( e.keyCode === 38 ) { 
 									movePacman(4);
 								}
-							} else if (e.keyCode === 68 && !PAUSE) { 
-								/*if ( $("#canvas-paths").css("display") === "none" ) { 
+							} else if (e.keyCode === 68 && !PAUSE) {  //backround paths
+								if ( $("#canvas-paths").css("display") === "none" ) { 
 									$("#canvas-paths").show();
 								} else { 
 									$("#canvas-paths").hide();
-								}*/
+								}
 							} else if (e.keyCode === 80 && !PACMAN_DEAD && !LOCK) { 
 								if (PAUSE) { 
 									resumeGame();
@@ -192,7 +190,7 @@
 	
 		<div id="home">
 			<h1>pac-man</h1>
-			<h3>Lucio PANEPINTO<br><em>2015</em></h3>
+			<h3>game implemented by Lucio PANEPINTO<br><em>2015</em></h3>
 			<canvas id="canvas-home-title-pacman"></canvas>
 			<div id="presentation">
 				<div id="presentation-titles">character &nbsp;/&nbsp; nickname</div>
