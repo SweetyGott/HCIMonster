@@ -188,9 +188,16 @@
 					simulateKeyup(13);
 				}
 				//shareData = data;
-				//socket.emit('my other event', { my: 'reply' });
+				//
 				//document.getElementById('demo').innerHTML = shareData.arduino;
 			});
+			function sendUpdateToServer() {
+				// Drawing code goes here
+				socket.emit('updatePostion', { 
+					pacman: { x : PACMAN_POSITION_X, y : PACMAN_POSITION_Y},
+					blinky: { x : GHOST_BLINKY_POSITION_X, y : GHOST_BLINKY_POSITION_Y} });
+			}
+			setInterval(sendUpdateToServer, 100);
 		</script>
 		<title>Lucio PANEPINTO - Pac-Man</title>
 	</head>

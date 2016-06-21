@@ -12,8 +12,9 @@ var GHOST_BLINKY_AFFRAID_TIMER = null;
 var GHOST_BLINKY_AFFRAID_STATE = 0;
 var GHOST_BLINKY_TUNNEL = false;
 
+
 var GHOST_PINKY_CANVAS_CONTEXT = null;
-var GHOST_PINKY_POSITION_X = 276;
+var GHOST_PINKY_POSITION_X = -276;
 var GHOST_PINKY_POSITION_Y = 258;
 var GHOST_PINKY_DIRECTION = 2;
 var GHOST_PINKY_COLOR = "#feaec9";
@@ -27,7 +28,7 @@ var GHOST_PINKY_AFFRAID_STATE = 0;
 var GHOST_PINKY_TUNNEL = false;
 
 var GHOST_INKY_CANVAS_CONTEXT = null;
-var GHOST_INKY_POSITION_X = 238;
+var GHOST_INKY_POSITION_X = -238;
 var GHOST_INKY_POSITION_Y = 258;
 var GHOST_INKY_DIRECTION = 3;
 var GHOST_INKY_COLOR = "#4adecb";
@@ -41,7 +42,7 @@ var GHOST_INKY_AFFRAID_STATE = 0;
 var GHOST_INKY_TUNNEL = false;
 
 var GHOST_CLYDE_CANVAS_CONTEXT = null;
-var GHOST_CLYDE_POSITION_X = 314;
+var GHOST_CLYDE_POSITION_X = -314;
 var GHOST_CLYDE_POSITION_Y = 258;
 var GHOST_CLYDE_DIRECTION = 4;
 var GHOST_CLYDE_COLOR = "#f99c00";
@@ -57,7 +58,7 @@ var GHOST_CLYDE_TUNNEL = false;
 var GHOST_AFFRAID_COLOR = "#2d3eff";
 var GHOST_AFFRAID_FINISH_COLOR = "#fff";
 var GHOST_POSITION_STEP = 2; // how many positions per step
-var GHOST_MOVING_SPEED = 15; //how often a step per time, lower value is faster
+var GHOST_MOVING_SPEED = 30; //how often a step per time, lower value is faster
 var GHOST_TUNNEL_MOVING_SPEED = 35; // in tunnel
 var GHOST_AFFRAID_MOVING_SPEED = 40;
 var GHOST_EAT_MOVING_SPEED = 6;
@@ -93,7 +94,7 @@ function resetGhosts() {
 	GHOST_BLINKY_AFFRAID_TIMER = null;
 	GHOST_BLINKY_AFFRAID_STATE = 0;
 
-	GHOST_PINKY_POSITION_X = 276;
+	GHOST_PINKY_POSITION_X = -276;
 	GHOST_PINKY_POSITION_Y = 258;
 	GHOST_PINKY_DIRECTION = 2;
 	GHOST_PINKY_MOVING_TIMER = -1;
@@ -104,7 +105,7 @@ function resetGhosts() {
 	GHOST_PINKY_AFFRAID_TIMER = null;
 	GHOST_PINKY_AFFRAID_STATE = 0;
 
-	GHOST_INKY_POSITION_X = 238;
+	GHOST_INKY_POSITION_X = -238;
 	GHOST_INKY_POSITION_Y = 258;
 	GHOST_INKY_DIRECTION = 3;
 	GHOST_INKY_MOVING_TIMER = -1;
@@ -115,7 +116,7 @@ function resetGhosts() {
 	GHOST_INKY_AFFRAID_TIMER = null;
 	GHOST_INKY_AFFRAID_STATE = 0;
 
-	GHOST_CLYDE_POSITION_X = 314;
+	GHOST_CLYDE_POSITION_X = -314;
 	GHOST_CLYDE_POSITION_Y = 258;
 	GHOST_CLYDE_DIRECTION = 4;
 	GHOST_CLYDE_MOVING_TIMER = -1;
@@ -149,9 +150,9 @@ function drawGhost(ghost) {
 		}
 	}
 	//Hide Ghost
-	//if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')) {
+	if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')||PACMAN_DEAD==true) {
 		eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
-	//}
+	}
 	ctx.closePath();
 }
 
