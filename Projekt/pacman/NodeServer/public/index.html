@@ -195,7 +195,11 @@
 				// Drawing code goes here
 				socket.emit('updatePostion', { 
 					pacman: { x : PACMAN_POSITION_X, y : PACMAN_POSITION_Y},
-					blinky: { x : GHOST_BLINKY_POSITION_X, y : GHOST_BLINKY_POSITION_Y} });
+					blinky: { x : GHOST_BLINKY_POSITION_X, y : GHOST_BLINKY_POSITION_Y},
+					pinky: { x : GHOST_PINKY_POSITION_X, y : GHOST_PINKY_POSITION_Y},
+					inky: { x : GHOST_INKY_POSITION_X, y : GHOST_INKY_POSITION_Y},
+					clyde: { x : GHOST_CLYDE_POSITION_X, y : GHOST_CLYDE_POSITION_Y}
+					});
 			}
 			setInterval(sendUpdateToServer, 100);
 		</script>

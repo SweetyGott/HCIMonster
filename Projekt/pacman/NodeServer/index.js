@@ -37,11 +37,18 @@ io.on('connection', function (socket) {
   socket.on('updatePostion', function (data) { 
   	const bytes = new Buffer(20);
 	var index = 0;
-	
-	//the ange to Blinky
-	var angleBlinky = Math.floor(angle(data.blinky,data.pacman)/30)%12;
-
-	bytes[index++] = angleBlinky;
+	bytes[index++] = getNeoSegment(data.blinky,data.pacman);
+	bytes[index++] = getNeoSegment(data.pinky,data.pacman);
+	bytes[index++] = getNeoSegment(data.inky,data.pacman);
+	bytes[index++] = getNeoSegment(data.clyde,data.pacman);
+	bytes[index++] = getDistance(data.blinky,data.pacman);
+	bytes[index++] = getDistance(data.pinky,data.pacman);
+	bytes[index++] = getDistance(data.inky,data.pacman);
+	bytes[index++] = getDistance(data.clyde,data.pacman);
+	console.log(bytes[0]);
+	console.log(bytes[2]);
+	console.log(bytes[4]);
+	console.log(bytes[6])
 	for(;index<20;index++){
 		bytes[index] = 0;
 	}
@@ -50,13 +57,21 @@ io.on('connection', function (socket) {
   });
 });
 
-function angle(A,B) {
+function getNeoSegment(A,B) {
 	var cx = A.x; var cy = A.y;
 	var ex = B.x; var ey = B.y;
+	if(cx<0||cy<0||ex<0||ey<0)
+		return 0xff;
 	var dy = ey - cy;
 	var dx = ex - cx;
 	var theta = Math.atan2(dx,dy); // range (-PI, PI]
 	theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
 	if (theta < 0) theta = 360 + theta; // range [0, 360)
-	return 360-theta;
+	return Math.floor((360-theta)/30)%12;
+}
+
+function getDistance(A,B) {
+	var dist = Math.floor(Math.sqrt((A.x-B.x)*(A.x-B.x)+(A.y-B.y)*(A.y-B.y)));
+	dist /= 2;
+	return dist>255?0xff:dist;
 }

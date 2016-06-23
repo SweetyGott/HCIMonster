@@ -29,10 +29,12 @@ void setup() {
   ring.begin();
   ring.show(); // Initialize all pixels to 'off'
 }
- 
+
+uint32_t ghostColor[] ={ring.Color(0xff,0x00,0x00),ring.Color(0xfe,0x00,0xff),ring.Color(0x00,0xff,0x00),ring.Color(0xf9,0x9c,0x00)};
+
 void loop(){
   String inputString;
-  char buf[20];
+  byte buf[20];
   bool read = false;
   if (Serial.available()) {
     read = true;
@@ -41,10 +43,7 @@ void loop(){
       inputString += (char) buf[i];  
     }
     for(int i = 0; i < NUM_PIXELS; ++i){
-      if(i == buf[0])
-        setPixel(i,255,0,0);
-      else
-        setPixel(i,0,0,0); 
+      setGhost(i,buf);
     }
     Serial.println(buf[0]);
     //Serial.println(inputString); 
@@ -75,8 +74,39 @@ void loop(){
   //delay(100);
 }
 
+
+void setGhost(uint16_t px, byte buf[]){
+  bool set = false;
+  for(uint16_t ghost_id = 0; ghost_id < 4;++ghost_id){
+    if(buf[ghost_id] == 0xff)
+      continue;
+    if(buf[ghost_id] == px && ghost_id == argMin((uint8_t) px,buf)){
+      setPixel(px,ghostColor[argMin((uint8_t) px,buf)]);
+      set = true;
+    }
+  }
+  if(!set)
+    setPixel(px,0,0,0);
+}
+
+uint16_t argMin(uint8_t px, byte buf[]){
+   int64_t min = 1000;
+   uint16_t argMin = 20;
+   for(uint16_t ghost_id = 0; ghost_id < 4;++ghost_id){
+    if((uint8_t)buf[ghost_id+4] < min && (((uint8_t) buf[ghost_id])==px)){
+      min = buf[ghost_id+4];
+      argMin = ghost_id;
+    }
+  }
+  return argMin;
+}
+
 void setPixel(uint16_t pixel, char r, char g, char b){
   uint32_t color = ring.Color(r, g, b);
+  setPixel(pixel,color);
+}
+
+void setPixel(uint16_t pixel, uint32_t color){
   ring.setPixelColor(pixel, color);
   ring.show();
 }
