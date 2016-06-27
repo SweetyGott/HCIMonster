@@ -13,16 +13,24 @@ var myPort = new SerialPort(portname, {
 myPort.on('open', function(){ console.log('port is open');});
 myPort.on('close', function(){ console.log('port is closed'); });
 myPort.on('error', function(){ console.log('some error - ?x it'); });
-var lastKey = -1;
+var lastKey = -1, lastSpeed = -1;
 var shareData = undefined;
 myPort.on('data', function(data) {
-	shareData = data;
-	if(data != lastKey && data != 0){
-		console.log(data);
-		io.emit('sendKey', { keyPressed: parseInt(shareData) });
+	var dataArr = data.split(";");
+	var dataKey = dataArr[0];
+	if(dataKey != lastKey && data != 0){
+		console.log(dataKey);
+		io.emit('sendKey', { keyPressed: parseInt(dataKey) });
 		 // establish connection with arduino example ' No idea if we need this line or what it does
 	}
-	lastKey = data;
+	var speed = parseInt(dataArr[1]);	
+	console.log(speed + "-" + lastSpeed);
+	if(speed != lastSpeed){
+		io.emit('sendSpeed', { "speed": speed });
+	}
+	lastKey = dataKey;
+	console.log(speed + "-" + lastSpeed);
+	lastSpeed = speed;
 });
 // server
 var app = express();

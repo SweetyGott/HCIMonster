@@ -13,6 +13,7 @@ const int upButton = 3;
 const int rightButton = 4;
 const int downButton = 5;
 const int ledPin =  13;
+#define potPin  "A5"
 int buttonState = 0;
 #define CDS_INPUT 0 
 
@@ -64,7 +65,10 @@ void loop(){
     value = 39;
   if(down == HIGH)
     value = 40;
-  Serial.println(value); 
+  int heartValue = analogRead(5);
+
+  int pacSpeed = heartValue/60+1;
+  Serial.println(String(value,DEC)+";"+String(pacSpeed,DEC)); 
   if (value == HIGH) {
     digitalWrite(ledPin, HIGH);
   }

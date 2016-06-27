@@ -161,6 +161,8 @@
 								} else { 
 									pauseGame();
 								}
+							} else if (e.keyCode === 65) { 
+								FORCE_SHOW_GHOST = !FORCE_SHOW_GHOST;
 							} else if (GAMEOVER) { 
 								initHome();
 							}
@@ -191,6 +193,12 @@
 				//
 				//document.getElementById('demo').innerHTML = shareData.arduino;
 			});
+			socket.on('sendSpeed', function (data) {
+				PACMAN_MOVING_SPEED = parseInt(data.speed);
+				console.log(PACMAN_MOVING_SPEED);
+			});		
+			
+			
 			function sendUpdateToServer() {
 				// Drawing code goes here
 				socket.emit('updatePostion', { 
