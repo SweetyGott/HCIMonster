@@ -33,6 +33,18 @@ void setup() {
 
 uint32_t ghostColor[] ={ring.Color(0xff,0x00,0x00),ring.Color(0xfe,0x00,0xff),ring.Color(0x00,0xff,0x00),ring.Color(0xf9,0x9c,0x00)};
 
+/*
+ * Protocoll
+ * receive:
+ * 20byte array
+ * 0-3: Neofruit segment of angle value 0-11. 0xff if ghost not on map
+ * 4-7: Distance from Pacman. Unsigned Byte max value 255. If farer away also 255
+ * 
+ *Send:
+ *String, Semikolon value
+ * first: key pressed. same code as up,left,right, down key on MS-keyboard. As Decimal value sent
+ * second: speed of PacMan max speed 1. Normal speed 15. The lower the value the faster is PacMan 
+ */
 void loop(){
   String inputString;
   byte buf[20];
