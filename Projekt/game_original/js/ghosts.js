@@ -132,9 +132,9 @@ function getGhostCanevasContext(ghost) {
 
 function drawGhosts() { 
 	drawGhost("blinky");
-	//drawGhost('pinky');
-	//drawGhost('inky');
-	//drawGhost("clyde");
+	drawGhost('pinky');
+	drawGhost('inky');
+	drawGhost("clyde");
 }
 function drawGhost(ghost) { 
 	var ctx = getGhostCanevasContext(ghost);
@@ -148,9 +148,9 @@ function drawGhost(ghost) {
 			eval('ctx.fillStyle = GHOST_AFFRAID_COLOR');
 		}
 	}
-	if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')) {
+	//if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')) {
 		eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
-	}
+	//}
 	ctx.closePath();
 }
 
@@ -253,7 +253,7 @@ function moveGhosts() {
 	moveGhost("blinky");
 	moveGhost('pinky');
 	moveGhost('inky');
-	//moveGhost("clyde");
+	moveGhost("clyde");
 }
 function moveGhost(ghost) {
 
