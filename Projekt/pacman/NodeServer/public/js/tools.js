@@ -84,3 +84,9 @@ CanvasRenderingContext2D.prototype.oval = function(centerX, centerY, width, heig
     centerX - width/2, centerY - height/2, 
     centerX, centerY - height/2); 
 }
+
+// RegEx: http://stackoverflow.com/a/1404100/451634
+function getURLParameter(name) {
+  var value = decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, ""])[1]);
+  return (value !== 'null') ? value : false;
+}
