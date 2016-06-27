@@ -1,9 +1,7 @@
 Install Gyroscpoe (Adafruit LSM303):
 
-$ cd ~/Documents/Arduino/libraries
-$ git clone https://github.com/adafruit/Adafruit_LSM303.git
-$ git clone https://github.com/adafruit/Adafruit_Sensor.git
-
+Adafruit LSM303DLHC
+Adafruit unified Sensor
 
 restart Arduino IDE!
 
