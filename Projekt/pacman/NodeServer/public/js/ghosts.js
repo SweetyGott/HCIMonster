@@ -9,7 +9,7 @@ var GHOST_EAT_MOVING_SPEED = 6;
 var GHOST_AFFRAID_TIME = 8500;
 var GHOST_EAT_TIME = 5500;
 var GHOST_BODY_STATE_MAX = 6;
-
+var FORCE_SHOW_GHOST = false;
 
 /*DEFAULT*/
 var GHOST_BLINKY_CANVAS_CONTEXT_DEFAULT = null;
@@ -185,7 +185,7 @@ function drawGhost(ghost) {
 		}
 	}
 	//Hide Ghost
-	if(!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')||PACMAN_DEAD==true) {
+	if((!eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')||PACMAN_DEAD==true)||FORCE_SHOW_GHOST) {
 		eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
 	}
 	ctx.closePath();
