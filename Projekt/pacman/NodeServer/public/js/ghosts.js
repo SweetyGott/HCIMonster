@@ -10,6 +10,19 @@ var GHOST_AFFRAID_TIME = 8500;
 var GHOST_EAT_TIME = 5500;
 var GHOST_BODY_STATE_MAX = 6;
 var FORCE_SHOW_GHOST = false;
+var ALPHA = 0.8;
+var GAMMA = 0.8;
+var TURNLEFT = 0;
+var TURNRIGHT = 1;
+var PACMANEATEN = 2;
+var STATES_COUNT = 3;
+var STATES = [TURNLEFT, TURNRIGHT, PACMANEATEN];
+var R = [[0, 0, 100], [0, 0, 100], [0, 0, 100]];
+var Q = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+var ACTIONSFROMTURNLEFT = [TURNLEFT, TURNRIGHT, PACMANEATEN];
+var ACTIONSFROMTURNRIGHT = [TURNLEFT, TURNRIGHT, PACMANEATEN];
+var ACTIONSFROMPACMANEATEN = [PACMANEATEN];
+var ACTIONS = [[TURNLEFT, TURNRIGHT, PACMANEATEN], [TURNLEFT, TURNRIGHT, PACMANEATEN], [PACMANEATEN]];
 
 /*DEFAULT*/
 var GHOST_BLINKY_CANVAS_CONTEXT_DEFAULT = null;
@@ -424,7 +437,7 @@ function changeDirection(ghost) {
 				}
 				
 			} else if (ghost === "inky") { 
-				var good = anyGoodIdea();
+				/*var good = anyGoodIdea();
 				if (good < 3) { 
 					tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
 					if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
@@ -432,6 +445,12 @@ function changeDirection(ghost) {
 						if (axe > 2) axe = 1; 
 						tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
 					}
+				}*/
+				tryDirection = qLearning(axe, ghostX, ghostY, pacmanX, pacmanY);
+				if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
+					axe ++;
+					if (axe > 2) axe = 1; 
+					tryDirection = qLearning(axe, ghostX, ghostY, pacmanX, pacmanY);
 				}
 			}
 		}
@@ -452,6 +471,60 @@ function changeDirection(ghost) {
 	
 	if (canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) { 
 		eval('GHOST_' + ghost.toUpperCase() + '_DIRECTION = tryDirection');
+	}
+}
+
+//Q-Learning Algorithm
+function qLearning(axe, ghostX, ghostY, pacmanX, pacmanY){
+	
+	var state = Math.floor(Math.random() % STATES_COUNT);
+	if (state != PACMANEATEN){
+		var index = Math.floor(Math.random() % STATES_COUNT);
+		var action = ACTIONS[state][index];
+		var nextState = action;
+		
+		var q = Q[state][action];
+        var maxQ = maximumOfQ(nextState);
+		var r = R[state][action];
+
+		var value = q + ALPHA * (r + GAMMA * maxQ - q);
+        setQ(state, action, value);
+		var dir = calculateDirectionFromState(nextState, axe);
+		return dir;
+	}
+}
+
+function maximumOfQ(s) {
+	var actionsFromState = ACTIONS[s];
+	var maxValue = Number.MIN_VALUE;
+	for (var i = 0; i < actionsFromState.length; i ++) { 
+		var nextState = actionsFromState[i];
+		var value = Q[s][nextState];
+
+		if (value > maxValue){
+			maxValue = value;
+		}
+	}
+	return maxValue;
+}
+
+function setQ(s, a, value) {
+	Q[s][a] = value;
+}
+
+function calculateDirectionFromState(nextState, axe){
+	if (axe === 1) { 
+		if (nextState == 0) { 
+			return 3;
+		} else { 
+			return 1;
+		}
+	} else { 
+		if (nextState == 0) { 
+			return 2;
+		} else { 
+			return 4;
+		}
 	}
 }
 
