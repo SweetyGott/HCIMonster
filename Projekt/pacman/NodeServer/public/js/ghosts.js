@@ -446,11 +446,11 @@ function changeDirection(ghost) {
 						tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
 					}
 				}*/
-				tryDirection = qLearning(axe, ghostX, ghostY, pacmanX, pacmanY);
+				tryDirection = qLearning(axe);
 				if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
 					axe ++;
 					if (axe > 2) axe = 1; 
-					tryDirection = qLearning(axe, ghostX, ghostY, pacmanX, pacmanY);
+					tryDirection = qLearning(axe);
 				}
 			}
 		}
@@ -475,7 +475,7 @@ function changeDirection(ghost) {
 }
 
 //Q-Learning Algorithm
-function qLearning(axe, ghostX, ghostY, pacmanX, pacmanY){
+function qLearning(axe){
 	
 	var state = Math.floor(Math.random() % STATES_COUNT);
 	if (state != PACMANEATEN){
