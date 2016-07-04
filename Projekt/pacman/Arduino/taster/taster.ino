@@ -8,6 +8,19 @@
 Adafruit_NeoPixel ring = Adafruit_NeoPixel(60, PIN, NEO_GRB + NEO_KHZ800);
 
 
+//  VARIABLES
+int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
+//int blinkPin = 13;                // pin to blink led at each beat
+
+// these variables are volatile because they are used during the interrupt service routine!
+volatile int BPM;                   // used to hold the pulse rate
+volatile int Signal;                // holds the incoming raw data
+volatile int IBI = 600;             // holds the time between beats, the Inter-Beat Interval
+volatile boolean Pulse = false;     // true when pulse wave is high, false when it's low
+volatile boolean QS = false;        // becomes true when Arduoino finds a beat.
+
+
+
 const int leftButton = 2;
 const int upButton = 3;
 const int rightButton = 4;
@@ -29,6 +42,8 @@ void setup() {
   #endif
   ring.begin();
   ring.show(); // Initialize all pixels to 'off'
+
+  interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS 
 }
 
 uint32_t ghostColor[] ={ring.Color(0xff,0x00,0x00),ring.Color(0xfe,0x00,0xff),ring.Color(0x00,0xff,0x00),ring.Color(0xf9,0x9c,0x00)};
@@ -77,9 +92,9 @@ void loop(){
     value = 39;
   if(down == HIGH)
     value = 40;
-  int heartValue = analogRead(5);
+  //int heartValue = analogRead(5);
 
-  int pacSpeed = heartValue/60+1;
+  int pacSpeed = getPacmanSpeed(BPM); //heartValue/60+1;
   Serial.println(String(value,DEC)+";"+String(pacSpeed,DEC)); 
   if (value == HIGH) {
     digitalWrite(ledPin, HIGH);
@@ -88,8 +103,16 @@ void loop(){
     digitalWrite(ledPin, LOW);
   }
   //delay(100);
+
+  
+   delay(20);
 }
 
+
+int getPacmanSpeed(int bpm){
+  if (bpm > 200) bpm = 200;
+  return (200 - bpm)/10 + 1;
+}
 
 void setGhost(uint16_t px, byte buf[]){
   bool set = false;
