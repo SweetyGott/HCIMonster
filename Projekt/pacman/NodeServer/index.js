@@ -24,12 +24,14 @@ myPort.on('data', function(data) {
 		 // establish connection with arduino example ' No idea if we need this line or what it does
 	}
 	var speed = parseInt(dataArr[1]);	
-	console.log(speed + "-" + lastSpeed);
+	//console.log(speed + "-" + lastSpeed);
 	if(speed != lastSpeed){
+		console.log("emitingSpeed")
 		io.emit('sendSpeed', { "speed": speed });
+		console.log("emited")
 	}
 	lastKey = dataKey;
-	console.log(speed + "-" + lastSpeed);
+	console.log("speed:" + speed + "- last: " + lastSpeed);
 	lastSpeed = speed;
 });
 // server
@@ -53,10 +55,10 @@ io.on('connection', function (socket) {
 	bytes[index++] = getDistance(data.pinky,data.pacman);
 	bytes[index++] = getDistance(data.inky,data.pacman);
 	bytes[index++] = getDistance(data.clyde,data.pacman);
-	console.log(bytes[0]);
-	console.log(bytes[2]);
-	console.log(bytes[4]);
-	console.log(bytes[6])
+	//console.log(bytes[0]);
+	//console.log(bytes[2]);
+	//console.log(bytes[4]);
+	//console.log(bytes[6])
 	for(;index<20;index++){
 		bytes[index] = 0;
 	}

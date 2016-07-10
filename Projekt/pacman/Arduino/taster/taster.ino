@@ -2,11 +2,19 @@
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM303_U.h>
+#include "Adafruit_DRV2605.h"
 
 #define PIN 6
 #define NUM_PIXELS 12
 Adafruit_NeoPixel ring = Adafruit_NeoPixel(60, PIN, NEO_GRB + NEO_KHZ800);
 
+
+/* Assign a unique ID to this sensor at the same time */
+Adafruit_LSM303_Accel_Unified accel = Adafruit_LSM303_Accel_Unified(54321);
+Adafruit_DRV2605 drv;
 
 //  VARIABLES
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
@@ -43,6 +51,16 @@ void setup() {
   ring.begin();
   ring.show(); // Initialize all pixels to 'off'
 
+  if(!accel.begin())
+  {
+    /* There was a problem detecting the LSM303 ... check your connections */
+    //Serial.println("Ooops, no LSM303 detected ... Check your wiring!");
+   // while(1);
+  }
+  drv.begin();
+
+  drv.setMode(DRV2605_MODE_REALTIME);
+  
   interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS 
 }
 
@@ -84,16 +102,23 @@ void loop(){
   int right = digitalRead(rightButton);
   int down = digitalRead(downButton);
   int value = 0;
-  if(left == HIGH)
-    value = 37;
-  if(up == HIGH)
-    value = 38;
-  if(right == HIGH)
-    value = 39;
-  if(down == HIGH)
-    value = 40;
-  //int heartValue = analogRead(5);
-
+  sensors_event_t event; 
+  accel.getEvent(&event);
+  int x = event.acceleration.x;
+  int y = event.acceleration.y;
+  int z = event.acceleration.z;
+  if(y>2)
+     value = 40;//Serial.print("V");
+  if(y < -6)
+     value = 38;//Serial.print("Z");
+  if(x >4.5 )
+     value = 39;//Serial.print("R"); 
+  if(x<-4.5)
+      value = 37;//Serial.print("L"); 
+  
+  uint8_t minDistance = minArr(buf);
+  drv.setRealtimeValue(max(0,0x30-(minDistance/2.5)));
+ 
   int pacSpeed = getPacmanSpeed(BPM); //heartValue/60+1;
   Serial.println(String(value,DEC)+";"+String(pacSpeed,DEC)); 
   if (value == HIGH) {
@@ -108,10 +133,20 @@ void loop(){
    delay(20);
 }
 
+uint16_t minArr(byte buf[]){
+   uint16_t min = 1000;
+   for(uint16_t ghost_id = 0; ghost_id < 4;++ghost_id){
+    if((uint8_t)buf[ghost_id+4] < min){
+      min = buf[ghost_id+4];
+    }
+  }
+  return min;
+}
+
 
 int getPacmanSpeed(int bpm){
   if (bpm > 200) bpm = 200;
-  return (200 - bpm)/10 + 1;
+  return 10;//(200 - bpm)/7 + 7;
 }
 
 void setGhost(uint16_t px, byte buf[]){
@@ -146,6 +181,6 @@ void setPixel(uint16_t pixel, char r, char g, char b){
 }
 
 void setPixel(uint16_t pixel, uint32_t color){
-  ring.setPixelColor(pixel, color);
+  ring.setPixelColor((pixel+1%12), color);
   ring.show();
 }
