@@ -322,6 +322,8 @@ function score(s, type) {
 	} else { 
 		$('#score span').html(SCORE);
 	}
+
+	$('#pulse span').html(PACMAN_MOVING_SPEED);
 	
 	var scoreAfter = (SCORE / 10000) | 0;
 	if (scoreAfter > scoreBefore) { 

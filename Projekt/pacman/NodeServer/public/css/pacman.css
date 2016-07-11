@@ -36,35 +36,49 @@ body {
 }
 
 
-#score, #highscore  { 
+#score, #highscore, #pulse  { 
 	position: absolute;
 	display: inline;
 	top: 70px;
 	margin: 0px;
 	padding: 0px;
+}
+#score {
+	width: 100px;
+}
+#highscore {
 	width: 160px;
 }
-#highscore { 
-	left: 180px;
+#pulse  { 
+	width: 100px;
 }
-#score h2, #score span, #highscore h2, #highscore span { 
+#score { 
+	left: 0px;
+}
+#highscore { 
+	left: 100px;
+}
+#pulse { 
+	left: 280px;
+}
+#score h2, #score span, #highscore h2, #highscore span, #pulse h2, #pulse span { 
 	display: block;
 	text-transform: uppercase;
 	font-weight: normal;
 	letter-spacing: 2px;
 	font-size: 16px;
 	height: 21px;
-	margin: 0px;
+	margin: 0px !important;
 	padding: 0px;
 	text-align: right;
 	padding-right: 15px;
 }
-#score span, #highscore span { 
+#score span, #highscore span, #pulse span { 
 	padding-right: 0px;
 }
-#highscore span { 
+/*#highscore span, #pulse span { 
 	padding-right: 40px;
-}
+}*/
 #message { 
 	position: absolute;
 	display: inline;
@@ -300,7 +314,7 @@ h3 {
 }
 #help { 
 	position: absolute;
-	width: 420px;
+	width: 320px;
 	height: 265px;
 	top: 290px;
 	left: 0px;
@@ -386,7 +400,7 @@ h3 {
 	h1, #canvas-panel-title-pacman, #control-up-second, #control-down-second, #home .help-button, #panel .help-button, #home .github, #sound, .sound { 
 		display: none;
 	}
-	#score, #highscore { 
+	#score, #highscore, #pulse { 
 		top: 0px;
 	}
 	#panel { 
