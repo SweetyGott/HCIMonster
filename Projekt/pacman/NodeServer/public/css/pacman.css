@@ -76,9 +76,9 @@ body {
 #score span, #highscore span, #pulse span { 
 	padding-right: 0px;
 }
-/*#highscore span, #pulse span { 
+#highscore span, #pulse span { 
 	padding-right: 40px;
-}*/
+}
 #message { 
 	position: absolute;
 	display: inline;
