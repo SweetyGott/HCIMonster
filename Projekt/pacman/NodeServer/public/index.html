@@ -194,6 +194,8 @@
 				//document.getElementById('demo').innerHTML = shareData.arduino;
 			});
 			socket.on('sendSpeed', function (data) {
+				if(data.speed <  7 || data.speed >16)
+					data.speed = 15;
 				PACMAN_MOVING_SPEED = data.speed + (getURLParameter("steps")>7000?1:0);
 				console.log("pacspeed: " + PACMAN_MOVING_SPEED);
 				drawSpeed();
