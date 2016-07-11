@@ -107,15 +107,14 @@ void loop(){
   int x = event.acceleration.x;
   int y = event.acceleration.y;
   int z = event.acceleration.z;
-  if(y>2)
-     value = 40;//Serial.print("V");
-  if(y < -6)
-     value = 38;//Serial.print("Z");
-  if(x >4.5 )
+  if(y <-2 )
      value = 39;//Serial.print("R"); 
-  if(x<-4.5)
+  if(y>6)
       value = 37;//Serial.print("L"); 
-  
+  if(x>0)
+     value = 40;//Serial.print("V");
+  if(x < -7)
+     value = 38;//Serial.print("Z");
   uint8_t minDistance = minArr(buf);
   drv.setRealtimeValue(max(0,0x30-(minDistance/2.5)));
  
@@ -146,7 +145,7 @@ uint16_t minArr(byte buf[]){
 
 int getPacmanSpeed(int bpm){
   if (bpm > 200) bpm = 200;
-  return 10;//(200 - bpm)/7 + 7;
+  return (200 - bpm)/7 + 7;
 }
 
 void setGhost(uint16_t px, byte buf[]){
