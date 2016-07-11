@@ -314,7 +314,7 @@ function clearMessage() {
 }
 
 function drawSpeed() { 
-	var pulse = (15-PACMAN_MOVING_SPEED)*10+60
+	var pulse = 200-20*(PACMAN_MOVING_SPEED-8);
 	$('#pulse span').html(pulse);
 }
 

@@ -145,7 +145,7 @@ uint16_t minArr(byte buf[]){
 
 int getPacmanSpeed(int bpm){
   if (bpm > 200) bpm = 200;
-  return (200 - bpm)/7 + 7;
+  return (200 - bpm)/20 + 8;
 }
 
 void setGhost(uint16_t px, byte buf[]){
