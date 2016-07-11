@@ -79,6 +79,7 @@ function initGame(newgame) {
 	initBoard();
 	drawBoard();
 	drawBoardDoor();
+	drawSpeed();
 	
 	initPaths();
 	drawPaths();
@@ -312,6 +313,11 @@ function clearMessage() {
 	$("#message").removeClass("red");
 }
 
+function drawSpeed() { 
+	var pulse = (15-PACMAN_MOVING_SPEED)*10+60
+	$('#pulse span').html(pulse);
+}
+
 function score(s, type) { 
 
 	var scoreBefore = (SCORE / 10000) | 0;
@@ -322,8 +328,6 @@ function score(s, type) {
 	} else { 
 		$('#score span').html(SCORE);
 	}
-
-	$('#pulse span').html(PACMAN_MOVING_SPEED);
 	
 	var scoreAfter = (SCORE / 10000) | 0;
 	if (scoreAfter > scoreBefore) { 
