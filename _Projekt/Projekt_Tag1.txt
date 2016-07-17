@@ -47,7 +47,7 @@ Aufgaben:
 - Spiel anpassen (Geister etc.)
 
 Sensoren/Aktuatoren:
-Neopixelring
-2-8 Vibrationsmotoren
-3*Touchsensoren array
-Arduino
+- Neopixelring
+- Vibrationsmotor
+- 3*Touchsensoren 
+- Arduino
