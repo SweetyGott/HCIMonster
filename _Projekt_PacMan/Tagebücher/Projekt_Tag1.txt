@@ -1,0 +1,53 @@
+Projekt Tag 1:
+
+Ideen:
+- Shooter/Bogenschießen mit Gegenstand als Abschuss und Heart-beat als natürliches "Wackeln2 der Waffe
+- Weitwurf-Spiel, wer kann das Plüschtier am weitesten werfen, je mehr Puls desto mehr Bonuspunkte, falls zu hoch gibt es Minuspunkte
+- Sport-Spiel, Schwierigkeitsgrad passt sich dem Puls an
+- Man muss Leute erschrecken, je höher der Puls, desto mehr Punkte
+- Allgemein: Heart-Beat wird benutzt, um zu zeigen, dass Spiel läuft oder um Kalorien zu berechnen
+- Box-Handschuhe mit Sensore, Heart-Beat berechnet Kalorien, Box-Spiel wie bei Wii
+- Zum Lernen von Mühle, wenn man guten Stein berührt, wird er warm, sonst kalt
+- Kartenspiel mit Computer, über Puls mit Reinforcement Learning herausfinden, ob Blatt gut oder schlecht
+- Mäxchen, mit Puls erkennen, ob geblufft oder nicht
+- Labyrinth, es wird warm, wenn man dem Ausgang näher kommt, kalt, wenn man sich davon entfernt, je höher der Puls, desto schneller läuft man
+- Flappy-Bird, Puls verändert Zittern, Steuerung mit Huhn durch Heben und Senken der Flügel
+- Pac-Man, je schneller der Puls, desto schneller die Geister, Computer lernt die Geister zu bewegen
+
+Horrible List:
+- Spiel mit echten Waffen, man drückt ab, der Computer lernt wie gut man getroffen hat, jenachdem wie wenig Puls man noch hat
+- Weitwurf-Spiel, wer kann das Plüschtier am weitesten werfen, je mehr Puls desto mehr Bonuspunkte, falls zu hoch gibt es Minuspunkte
+
+Good List:
+- Mäxchen, mit Puls erkennen, ob geblufft oder nicht
+	-Pulssensor
+	-große Plüschwürfel
+- Pac-Man, je schneller der Puls, desto schneller das PacMan, Computer lernt die Geister zu bewegen
+	-Pulssensor
+	-physikalisches Objekt als Controller
+	-Touch-Sensoren
+	-Vibrations-Motor um Geister anzuzeigen, ohne sie auf dem Screen anzuzeigen, NeoPixel-Ring zeigt an, von wo die Geister kommen
+	-Vom Pac-Man gefressen -> Puls stark erniedrigen
+	-Aktivität den Tag über beeinflusst die Anzahl der Kirschen im Spiel oder die Anfangsgeschwindigkeit im Spiel, Schritt-Tracking
+- Box-Handschuhe mit Sensore, Heart-Beat berechnet Kalorien, Box-Spiel wie bei Wii
+	-Pulssensor
+	-Box-Handschuhe
+	-Sensoren zum Feststellen der Lage der Hände
+
+Finale Idee:
+- Pac-Man
+
+Aufgaben:
+- Spielumgebung aufsetzen (gute Implementierung finden in Java/JavaScript) -> Michael
+- Controller-Idee ausarbeiten -> Tabea
+- Arduino mit Puls-Sensor, Touch-Sensor, Vibrations-Sensor, .. aufbauen -> Philipp
+- Kommunikation zwischen Arduino und Spiel
+- Reinforcement Algorithmus
+- Einbindung der Tagesaktivität
+- Spiel anpassen (Geister etc.)
+
+Sensoren/Aktuatoren:
+- Neopixelring
+- Vibrationsmotor
+- 3*Touchsensoren 
+- Arduino

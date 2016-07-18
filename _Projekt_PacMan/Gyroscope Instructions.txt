@@ -1,0 +1,8 @@
+Install Gyroscpoe (Adafruit LSM303):
+
+Adafruit LSM303DLHC
+Adafruit unified Sensor
+
+restart Arduino IDE!
+
+Examples->Adafruit LSM303->Test

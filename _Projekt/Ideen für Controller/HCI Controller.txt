@@ -1,6 +1,0 @@
-Controller Ideen:
-- Perry mit Touch-Pad und Neopixel-Ring auf dem Bauch
-- Fußmatte oder änhliches benutzen für Richtungen, Neopixel am Bildschirm
-- Bälle oder Wollknäuel für Richtungen drücken, Neopixel am Bildschirm
-- Kissen mit aufgedruckten Pfeilen und Neopixel in der Mitte
-- Perry mit Touch-Sensor im Kopf, linker/rechter Hand und im Fuß/Schwanz zum Steuern
